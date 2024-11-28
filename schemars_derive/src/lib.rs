@@ -167,6 +167,8 @@ fn derive_json_schema(mut input: syn::DeriveInput, repr: bool) -> syn::Result<To
         schema_exprs::expr_for_container(&cont)
     };
 
+    let not_referenceable = cont.attrs.not_referenceable;
+
     Ok(quote! {
         const _: () = {
             #crate_alias
@@ -174,6 +176,10 @@ fn derive_json_schema(mut input: syn::DeriveInput, repr: bool) -> syn::Result<To
             #[automatically_derived]
             #[allow(unused_braces)]
             impl #impl_generics schemars::JsonSchema for #type_name #ty_generics #where_clause {
+                fn is_referenceable() -> bool {
+                    !#not_referenceable
+                }
+
                 fn schema_name() -> std::string::String {
                     #schema_name
                 }

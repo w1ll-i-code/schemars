@@ -6,8 +6,9 @@ use syn::{
     parse::Parser, punctuated::Punctuated, Expr, ExprPath, Lit, Meta, MetaList, MetaNameValue, Path,
 };
 
+#[rustfmt::skip]
 pub(crate) static VALIDATION_KEYWORDS: &[&str] = &[
-    "range", "regex", "contains", "email", "phone", "url", "length", "required",
+    "range", "regex", "contains", "email", "phone", "url", "length", "required", "not_referenceable",
 ];
 
 #[derive(Debug, Clone, Copy, PartialEq)]
